@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 /*
-Suppose we have some input data describing a graph of relationships between parents and children over multiple generations. The data is formatted as a list of (parent, child) pairs, where each individual is assigned a unique integer identifier.
+Suppose we have some input data describing a graph of relationships between parents
+and children over multiple generations. The data is formatted as a list of (parent, child) pairs,
+where each individual is assigned a unique integer identifier.
 
 For example, in this diagram, 6 and 8 have a common ancestor of 4.
 
@@ -19,7 +21,8 @@ pair = [
     (4, 8), (4, 9), (9, 11), (14, 4), (13, 12), (12, 9)
 ]
 
-Write a function that takes the graph, as well as two of the individuals in our dataset, as its inputs and returns true if and only if they share at least one ancestor.
+Write a function that takes the graph, as well as two of the individuals in our dataset,
+as its inputs and returns true if and only if they share at least one ancestor.
 
 Sample input and output:
 
@@ -32,6 +35,28 @@ hasCommonAncestor(pairs, 7, 11) => true
 hasCommonAncestor(pairs, 6, 5) => true
 hasCommonAncestor(pairs, 5, 6) => true
 */
+
+/*
+ * To test Solution
+ * Parent-child Pairs
+ * 
+var pairs = new List<int[]>
+{
+    new int[]{1, 3}, // 1 is parent, 3 is child
+    new int[]{2, 3},
+    new int[]{3, 6},
+    new int[]{5, 6},
+    new int[]{5, 7},
+    new int[]{4, 5},
+    new int[]{4, 8},
+    new int[]{4, 9},
+    new int[]{9, 11},
+    new int[]{14, 4},
+    new int[]{13, 12},
+    new int[]{12, 9},
+};
+*/
+
 namespace LeetcodeAlgorithms
 {
     /// <summary>
@@ -69,7 +94,7 @@ namespace LeetcodeAlgorithms
     public class FindCommonAncestorsGraph
     {
         // a graph is a list of nodes
-        List<Node> graph = new List<Node>(); 
+        List<Node> graph = new List<Node>();
 
         public void CreateGraph(List<int[]> pairs)
         {
@@ -85,14 +110,14 @@ namespace LeetcodeAlgorithms
 
                 Node parentNode = graph.FirstOrDefault<Node>(n => n.Data == p[0]);
 
-               if (parentNode == null)
+                if (parentNode == null)
                 {
                     parentNode = new Node(p[0]);
                     graph.Add(parentNode);
                 }
 
                 node.Parents.Add(parentNode);
-            }   
+            }
 
             // Output all nodes in graph
             foreach (var item in graph)
@@ -117,7 +142,7 @@ namespace LeetcodeAlgorithms
                 allAncestorsOfNode.AddRange(GetAllAncestorsOfNode(p.Data));
             }
 
-            return allAncestorsOfNode;        
+            return allAncestorsOfNode;
         }
 
         public bool HasCommonAncestor(int firstValue, int secondValue)
@@ -125,10 +150,12 @@ namespace LeetcodeAlgorithms
             var allAncestorsFirstValue = GetAllAncestorsOfNode(firstValue);
             var allAncestorsSecondValue = GetAllAncestorsOfNode(secondValue);
 
-            return allAncestorsFirstValue.Intersect(allAncestorsSecondValue).Count() > 0; 
+            return allAncestorsFirstValue.Intersect(allAncestorsSecondValue).Count() > 0;
         }
     }
 }
+
+
 
 
 
